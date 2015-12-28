@@ -1,0 +1,35 @@
+{
+  "name": "mkmarek.neuralnet",
+  "version": "0.0.1",
+  "description": "Native node.js module for neural networks",
+  "main": "index.js",
+  "repository": "https://github.com/mkmarek/neuralnet.git",
+  "scripts": {
+    "test": "gulp test",
+    "start": "gulp watch"
+  },
+  "keywords": [
+    "ES6",
+    "desvstack"
+  ],
+  "author": "Marek Magdziak",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-preset-es2015-node": "^5.0.1",
+    "chai": "^3.4.1",
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1",
+    "gulp-babel-istanbul": "^0.11.0",
+    "gulp-istanbul-report": "0.0.1",
+    "gulp-mocha": "^2.2.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "isparta": "^4.0.0",
+    "istanbul": "^0.4.1",
+    "merge2": "^0.3.6",
+    "mocha": "^2.3.4",
+    "remap-istanbul": "^0.5.1"
+  },
+  "dependencies": {}
+}
