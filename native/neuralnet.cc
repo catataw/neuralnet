@@ -298,12 +298,80 @@ void clear(const FunctionCallbackInfo<Value>& args) {
     m.erase (handle);
 }
 
+void backPropagate(const FunctionCallbackInfo<Value>& args) {
+
+    Isolate* isolate = args.GetIsolate();
+
+    try{
+
+  //The number of arguments has to be precisely one argument which will be the topology
+  if (args.Length() < 2) {
+      isolate->ThrowException(Exception::TypeError(
+          v8::String::NewFromUtf8(isolate, "Wrong number of arguments")));
+      return;
+  }
+
+  //the first arguments has to be a number
+  if (!args[0]->IsInt32()) {
+      isolate->ThrowException(Exception::TypeError(
+          v8::String::NewFromUtf8(isolate, "Wrong type of argument 0")));
+      return;
+  }
+
+  //the second argument has to be an array
+  if (!args[1]->IsArray()) {
+        isolate->ThrowException(Exception::TypeError(
+            v8::String::NewFromUtf8(isolate, "Wrong type of argument 1")));
+        return;
+    }
+
+  //extract topology from passed parameter
+  std::vector<double> inputValues;
+
+  Local<Array> input = Local<Array>::Cast(args[1]);
+  unsigned num_values = input->Length();
+
+  for (unsigned i = 0; i < num_values; i++) {
+
+    //All members of an array have to be integers
+    if (!input->Get(i)->IsNumber()) {
+        isolate->ThrowException(Exception::TypeError(
+            v8::String::Concat(v8::String::NewFromUtf8(isolate, "Wrong type of member in array on index: ") ,
+                    Integer::New(isolate, i)->ToString())
+                    ));
+        return;
+    }
+
+    Local<Number> neuronCount = Local<Number>::Cast(input->Get(i));
+
+    inputValues.push_back(neuronCount->NumberValue());
+  }
+
+   int handle = args[0]->Int32Value();
+
+   if (m.find( handle ) == m.end()) {
+          isolate->ThrowException(Exception::TypeError(
+              v8::String::NewFromUtf8(isolate, "Network with this handle doesn't exist")));
+          return;
+   }
+
+  Network* net = m[handle];
+
+  net->backPropagation(inputValues);
+  }
+  catch(const char* exception) {
+    isolate->ThrowException(Exception::TypeError(
+                  v8::String::NewFromUtf8(isolate, exception)));
+  }
+}
+
 void init(Local<Object> exports) {
   NODE_SET_METHOD(exports, "create", create);
   NODE_SET_METHOD(exports, "clear", clear);
   NODE_SET_METHOD(exports, "setInputValues", setInputValues);
   NODE_SET_METHOD(exports, "getOutputValues", getOutputValues);
   NODE_SET_METHOD(exports, "getValuesFromLayer", getValuesFromLayer);
+  NODE_SET_METHOD(exports, "backPropagate", backPropagate);
 }
 
 NODE_MODULE(addon, init)

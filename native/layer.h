@@ -16,6 +16,11 @@ public:
     void getValues(std::vector<double> &values, bool bias = true);
     unsigned getNeuronCount();
     void feedForward(Layer& sourceLayer);
+    void calculateGradients(std::vector<double> &values, std::vector<double> &vectors);
+    void calculateGradients(Layer &nextLayer, std::vector<double> &nextLayerGradients, std::vector<double> &vectors);
+    void getWeights(unsigned sourceNeuronIdx, std::vector<double>& weights);
+    void getWeights(unsigned sourceNeuronIdx, std::vector<Weight*>& weights);
+    void updateInputWeights(Layer &previousLayer, double eta, double alpha, std::vector<double> &gradients);
 private:
     std::vector<Neuron> m_Neurons;
     std::map<unsigned, std::vector<Weight>> m_Weights;

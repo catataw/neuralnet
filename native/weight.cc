@@ -15,3 +15,11 @@ double Weight::getValue() {
 unsigned Weight::getSourceNeuronIndex() {
     return this->m_SourceNeuronIndex;
 }
+
+void Weight::setDelta(double delta) {
+    this->m_Delta = delta;
+}
+
+double Weight::getDelta() {
+    return this->m_Delta;
+}

@@ -24,12 +24,17 @@ public:
     void setInputValues(std::vector<double> &inputValue);
     void getOutputValues(std::vector<double> &outputValues);
     void getValuesFromLayer(std::vector<double> &outputValues, unsigned index);
+    void backPropagation(std::vector<double> &targetValues);
 private:
     /**
     * Vector containing all layers defined for this neural network
     */
     std::vector<Layer> m_Layers;
-
+    double m_Error;
+    double m_RecentAverageError;
+    double m_RecentAverageSmoothingFactor;
+    double m_Eta;
+    double m_Alpha;
 };
 
 #endif

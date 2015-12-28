@@ -8,9 +8,12 @@ public:
 
     void setValue(double weight);
     double getValue();
+    void setDelta(double delta);
+    double getDelta();
     unsigned getSourceNeuronIndex();
 private:
     double m_Value;
+    double m_Delta;
     unsigned m_SourceNeuronIndex;
 };
 

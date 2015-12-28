@@ -159,4 +159,34 @@ describe('Neuralnet', function() {
             neuralnet.clear(handle);
         });
     });
+
+    describe('#backPropagate()', function () {
+
+        it('Should successfully retrieve values from the output neurons', function () {
+
+            //Creating a neural network with three layers
+            //The first (input) layer will contain 3 neurons
+            //The second (hidden) layer will contain 3 neurons
+            //The third (output) layer will contain 2 neurons
+            let handle = neuralnet.create([3,4,3]);
+
+            neuralnet.setInputValues(handle, [1,2.6,3]);
+
+            var values = neuralnet.getOutputValues(handle);
+            console.log(values);
+            var factory = () => {
+                neuralnet.getOutputValues(handle);
+                neuralnet.backPropagate(handle, [0.1, 0.1, 0.7]);
+            };
+
+            for(var i = 0;i < 5000; i++) {
+                factory.should.not.Throw(Error);
+            }
+
+            values = neuralnet.getOutputValues(handle);
+            console.log(values);
+
+            neuralnet.clear(handle);
+        });
+    });
 });

@@ -1,8 +1,5 @@
 #include "neuron.h"
 
-double transferFunction(double x) {
-    return x / (1 + abs(x));
-}
 
 Neuron::Neuron(unsigned index) {
     this->m_myIndex = index;
@@ -14,6 +11,14 @@ void Neuron::setOutputValue(double outputValue) {
 
 double Neuron::getOutputValue() {
     return this->m_outputValue;
+}
+
+double Neuron::transferFunction(double x) {
+    return x / (1 + abs(x));
+}
+
+double Neuron::transferFunctionDerivative(double x) {
+    return 1/((1+abs(x))*(1+abs(x)));
 }
 
 void Neuron::calculateOutputValue(std::vector<double> &values, std::vector<Weight> &weights){

@@ -12,6 +12,8 @@ public:
     void setOutputValue(double outputValue);
     double getOutputValue();
     void calculateOutputValue(std::vector<double> &values, std::vector<Weight> &weights);
+    double transferFunction(double x);
+    double transferFunctionDerivative(double x);
 private:
     double m_outputValue;
     unsigned m_myIndex;
