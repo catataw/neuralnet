@@ -1,6 +1,6 @@
 {
   "name": "mkmarek.neuralnet",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "node": ">= 5.3.0"
   },
@@ -14,8 +14,8 @@
     "example-sinus": "gulp build && node ./transpiled/examples/sinus.js"
   },
   "keywords": [
-    "ES6",
-    "desvstack"
+    "neural network",
+    "native"
   ],
   "author": "Marek Magdziak",
   "license": "MIT",
