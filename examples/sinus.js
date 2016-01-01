@@ -1,4 +1,4 @@
-import neuralnet from '../../build/Release/neuralnet'
+import neuralnet from '../../index'
 
 console.log('////////////////// RUNNING SINUS APPROXIMATION EXAMPLE //////////////////');
 

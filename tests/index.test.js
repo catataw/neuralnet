@@ -1,4 +1,4 @@
-import neuralnet from '../../build/Release/neuralnet'
+import neuralnet from '../../index'
 import chai from 'chai'
 
 chai.should();

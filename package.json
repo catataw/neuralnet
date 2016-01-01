@@ -1,12 +1,15 @@
 {
   "name": "mkmarek.neuralnet",
   "version": "0.0.1",
+  "engines": {
+    "node": ">= 5.3.0"
+  },
   "description": "Native node.js module for neural networks",
   "main": "index.js",
   "repository": "https://github.com/mkmarek/neuralnet.git",
   "scripts": {
     "test": "gulp test",
-    "start": "gulp watch",
+    "preinstall": "node-gyp rebuild",
     "example-xor": "gulp build && node ./transpiled/examples/xor.js",
     "example-sinus": "gulp build && node ./transpiled/examples/sinus.js"
   },
@@ -15,7 +18,8 @@
     "desvstack"
   ],
   "author": "Marek Magdziak",
-  "license": "ISC",
+  "license": "MIT",
+  "gypfile": true,
   "devDependencies": {
     "babel-cli": "^6.3.17",
     "babel-preset-es2015-node": "^5.0.1",

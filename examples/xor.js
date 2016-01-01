@@ -1,4 +1,4 @@
-import neuralnet from '../../build/Release/neuralnet'
+import neuralnet from '../../index'
 
 console.log('////////////////// RUNNING XOR OPERATION EXAMPLE //////////////////');
 
