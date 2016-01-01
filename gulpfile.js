@@ -83,3 +83,5 @@ gulp.task('watch', ['test'], function() {
     gulp.watch(config.paths.source + config.paths.sourceFilePattern, ['test']);
     gulp.watch(config.paths.tests + config.paths.testFilePattern, ['test']);
 });
+
+gulp.task('build', ['transpile-scripts', 'transpile-tests'], function() {});

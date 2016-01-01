@@ -1,6 +1,6 @@
 module.exports = {
     paths : {
-        source : 'src',
+        source : 'examples',
         tests : 'tests',
         coverage: 'coverage',
         coverageHtmlReport: 'coverage/html',

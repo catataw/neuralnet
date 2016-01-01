@@ -6,7 +6,9 @@
   "repository": "https://github.com/mkmarek/neuralnet.git",
   "scripts": {
     "test": "gulp test",
-    "start": "gulp watch"
+    "start": "gulp watch",
+    "example-xor": "gulp build && node ./transpiled/examples/xor.js",
+    "example-sinus": "gulp build && node ./transpiled/examples/sinus.js"
   },
   "keywords": [
     "ES6",
@@ -30,6 +32,5 @@
     "merge2": "^0.3.6",
     "mocha": "^2.3.4",
     "remap-istanbul": "^0.5.1"
-  },
-  "dependencies": {}
+  }
 }

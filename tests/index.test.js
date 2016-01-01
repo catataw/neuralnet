@@ -162,29 +162,58 @@ describe('Neuralnet', function() {
 
     describe('#backPropagate()', function () {
 
-        it('Should successfully retrieve values from the output neurons', function () {
+        it('Should throw an error when unsufficient number of arguments is passed', function () {
 
-            //Creating a neural network with three layers
-            //The first (input) layer will contain 3 neurons
-            //The second (hidden) layer will contain 3 neurons
-            //The third (output) layer will contain 2 neurons
+            let handle = neuralnet.create([3,4,2]);
+
+            var factory = () => { neuralnet.backPropagate(); };
+            var factory2 = () => { neuralnet.backPropagate(handle); };
+
+            factory.should.Throw('Wrong number of arguments');
+            factory2.should.Throw('Wrong number of arguments');
+        });
+
+        it('Should throw an error when we pass a non numeric member in an array', function () {
+
+            let handle = neuralnet.create([3,4,2]);
+
+            var factory = () => { neuralnet.backPropagate(handle, [1,2.5,3, 'fsdfsdf']); };
+
+            factory.should.Throw('Wrong type of member in array on index: 3');
+        });
+
+        it('Should bring the result layer neuron values closer to the wanted result', function () {
             let handle = neuralnet.create([3,4,3]);
+            let result = [0.1, 0.1, 0.7];
+
+            function calculateNetError(values, result) {
+                var s = 0;
+                for (var i = 0; i < result.length; i++) {
+                    s += values[i] - result[i];
+
+                }
+
+                return s / result.length;
+            }
 
             neuralnet.setInputValues(handle, [1,2.6,3]);
 
             var values = neuralnet.getOutputValues(handle);
-            console.log(values);
+
+            var previousNetError = calculateNetError(values, result);
+
             var factory = () => {
                 neuralnet.getOutputValues(handle);
-                neuralnet.backPropagate(handle, [0.1, 0.1, 0.7]);
+                neuralnet.backPropagate(handle, result);
             };
 
-            for(var i = 0;i < 5000; i++) {
-                factory.should.not.Throw(Error);
-            }
+            factory.should.not.Throw(Error);
 
-            values = neuralnet.getOutputValues(handle);
-            console.log(values);
+            var values = neuralnet.getOutputValues(handle);
+
+            var netError = calculateNetError(values, result);
+
+            netError.should.be.below(previousNetError);
 
             neuralnet.clear(handle);
         });

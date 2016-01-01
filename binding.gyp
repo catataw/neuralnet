@@ -3,15 +3,17 @@
     {
       "target_name": "neuralnet",
       "sources": [
-        "native/layer.h",
-        "native/layer.cc",
-        "native/network.h",
-        "native/network.cc",
-        "native/neuralnet.cc",
-        "native/neuron.h",
-        "native/neuron.cc",
-        "native/weight.h",
-        "native/weight.cc"]
+        "src/prop.h",
+        "src/layer.h",
+        "src/layer.cc",
+        "src/network.h",
+        "src/network.cc",
+        "src/export.cc",
+        "src/neuron.h",
+        "src/neuron.cc",
+        "src/connection.h",
+        "src/connection.cc"
+      ]
     }
   ]
 }
