@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Neuralnet by mkmarek</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Neuralnet</h1>
+      <h2 class="project-tagline">Native neural network Node.js module.</h2>
+      <a href="https://github.com/mkmarek/neuralnet" class="btn">View on GitHub</a>
+      <a href="https://github.com/mkmarek/neuralnet/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/mkmarek/neuralnet/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="neural-network-native-module-for-nodejs" class="anchor" href="#neural-network-native-module-for-nodejs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Neural network native module for Node.js</h1>
+
+<p>This library was created as self learning project to get into creating Node.js native modules and neural networks.</p>
+
+<p>The Node.js version used is 5.3.0.</p>
+
+<h2>
+<a id="running-the-source" class="anchor" href="#running-the-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running the source</h2>
+
+<p>First run the install npm command to download and install all dependencies</p>
+
+<pre><code>npm install
+</code></pre>
+
+<p>Then you need node-gyp to create and compile C++ sources</p>
+
+<pre><code>npm install -g node-gyp
+</code></pre>
+
+<p>Then use the configure command to create appropriate project build files for your platform</p>
+
+<pre><code>node-gyp configure
+</code></pre>
+
+<p>After that you're ready to build. You can do that by using the node-gyp build command.</p>
+
+<pre><code>node-gyp build
+</code></pre>
+
+<p>After the build succeeds run the test command to verify that everything is OK.</p>
+
+<pre><code>gulp test
+</code></pre>
+
+<p>You can run embedded examples which are located in the examples folder</p>
+
+<pre><code>npm run example-xor
+</code></pre>
+
+<pre><code>npm run example-sinus
+</code></pre>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<pre><code>npm install mkmarek.neuralnet
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Import the the module</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> neuralnet <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>mkmarek.neuralnet<span class="pl-pds">'</span></span>);</pre></div>
+
+<p>or with ES6 modules syntax</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">import</span> <span class="pl-smi">neuralnet</span> <span class="pl-k">from</span> <span class="pl-s"><span class="pl-pds">'</span>mkmarek.neuralnet<span class="pl-pds">'</span></span></pre></div>
+
+<p>The neuralnet module exposes several functions you can use.</p>
+
+<p>For creating a neural network use:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">let</span> handle <span class="pl-k">=</span> <span class="pl-smi">neuralnet</span>.<span class="pl-en">create</span>([<span class="pl-c1">2</span>,<span class="pl-c1">4</span>,<span class="pl-c1">1</span>]);</pre></div>
+
+<p>Where the first parameter is the topology of the network. It's an array of numbers. Each member of that array represents
+one layer and each value in that array represents amount of neurons in that layer. The first number then represents how
+many neurons are in input layer and the last number represents how many neurons are in the output layer. Anything
+in between are hidden layers.</p>
+
+<p>The handle that is returned is a number used for referencing the created network.</p>
+
+<p>For setting up input values use:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">neuralnet</span>.<span class="pl-en">setInputValues</span>(handle, [<span class="pl-c1">1</span>,<span class="pl-c1">0</span>]);</pre></div>
+
+<p>Where the first parameter is a handle number of a given neural network and the second parameter is an array with
+numbers that shall go into the input layer.</p>
+
+<p>For getting the output values use:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">let</span> values <span class="pl-k">=</span> <span class="pl-smi">neuralnet</span>.<span class="pl-en">getOutputValues</span>(handle);</pre></div>
+
+<p>Where the first and only parameter is the network handle. The returned object is an array of numbers representing
+the values in the output layer after a feed forward mechanism is invoked for all defined layers.</p>
+
+<p>For invoking back propagation use:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">neuralnet</span>.<span class="pl-en">backPropagate</span>(handle, [<span class="pl-c1">1</span>]);</pre></div>
+
+<p>The first parameter is as usual the network handle and the second one is the desired output that we expect from our
+neural network. Use the back propagation in combination with getOutputValues function to refresh the data each time
+before the back propagation is called.</p>
+
+<p>After you're done with you network call the clear function to cleanup all resources that your neural network allocated.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">neuralnet</span>.<span class="pl-c1">clear</span>(handle);</pre></div>
+
+<p>The one and only parameter is the neural network handle.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/mkmarek/neuralnet">Neuralnet</a> is maintained by <a href="https://github.com/mkmarek">mkmarek</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
